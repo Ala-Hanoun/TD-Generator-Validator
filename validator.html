@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>TD Validator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="schema.js"></script>
+    <link id="pagestyle" rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div role="navigation" class="navbar navbar-default header">
+    <img src="images/icon2.png" class="media-left" style="max-height:50px; float: left; padding-left: 20px;" alt="">
+  <div class="navbar-header">
+    <span class="navbar-brand" style="font-size: 2rem; color: black;">TD Validator</span>
+  </div>
+  <div class="navbar-right home-btn-container">
+    <a href="index.html">
+      <button class="btn home-btn">Home</button>
+    </a>
+    <div class="switch-container">
+              <label class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+              </label>
+            </div>  
+  </div>
+</div>
+  <div class="row ml-0" style="margin: 0; margin-bottom: 0;">
+    <div class="col-md-6 validator-col-left" >
+      <div class="row">      
+        <div class="col-xs-6">
+          <div class="dropdown show" id="versions"> 
+            <label for="versions" style="padding-top:13px ; padding-left: 10px;">Select TD version:</label>         
+            <a class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              V1.1 &nbsp <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="validator-v1.html" >V1.0</a></li>
+              <li><a href="#" >V1.1</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xs-6 ">
+          <input type="file" id="input" accept=".json" class="btn btn-default" style="margin-bottom: 12px;">
+        </div>
+     
+     </div>
+     <div id="results"></div>
+     
+    </div>
+    <div class="col-md-6 ml-0 validator-col-right">
+      <div class="row">
+        <div class="col-xs-6">
+          <h3 style="margin-top: 15px; padding-left: 18px;">Validation Result:</h3>
+        </div>
+        <div class="col-xs-6" style="display:flex;justify-content: right;">
+          <button class="btn btn-primary" id="save-btn" type="submit">Save</button>
+        </div>
+      </div>
+      <div class="validation ">
+        <pre ></pre>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <h3> © 2023</h3>
+  </div>
+  <script>
+            function setTheme(themeName) {
+            localStorage.setItem('theme', themeName);
+            document.documentElement.className = themeName;
+        }
+   
+        // Immediately invoked function to set the theme on i nitial load
+        (function () {
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                darkTheme();
+                document.getElementById('slider').checked = false;
+            } else {
+              document.getElementById('slider').checked = true;
+
+                lightTheme();
+            }
+        })();
+              // function to toggle between light and dark theme
+        function toggleTheme() {
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                setTheme('theme-light');
+                lightTheme();
+            } else {
+                setTheme('theme-dark');
+                darkTheme();
+            }
+        }
+        function darkTheme() {
+          fetch('Dracula.json')
+            .then(data => data.json())
+            .then(data => {
+              monaco.editor.defineTheme('dracula', data);
+              monaco.editor.setTheme('dracula');
+            })  
+          document.getElementById("pagestyle").setAttribute("href", "dark-style.css");  
+        }
+        function lightTheme() {
+          fetch('Dawn.json')
+            .then(data => data.json())
+            .then(data => {
+              monaco.editor.defineTheme('dawn', data);
+              monaco.editor.setTheme('dawn');
+            })  
+          document.getElementById("pagestyle").setAttribute("href", "style.css");  
+        }
+    
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/8.12.0/ajv7.min.js" integrity="sha512-U2SW9Ihh3GF6F8gP8QgLS+I244xnM5pFCh3cigpw7bAzUDnKDlxdlFL4kjyXTle8SJl/tJ0gdnwd44Eb3hLG/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="module">
+
+      document.getElementById('input').addEventListener('change', onChange);
+      //function to read the user uploaded TD files     
+      function onChange(event) {
+            var reader = new FileReader();
+            reader.onload = testFile;
+            reader.readAsText(event.target.files[0]);
+      }
+      
+      //function that gets executed when a TD file is done uploading
+      function testFile(event) {
+        try {
+          var file = JSON.parse(event.target.result);
+          const Ajv = window.ajv7;
+          const ajv = new Ajv({strict: false,allErrors: true })
+          try {
+            
+                  const validate = ajv.compile(schema_v2)
+                  test(file)
+                  //function to validate the TD and display the results
+                  function test(data) {
+                      const valid = validate(data)
+                      if (valid) {
+                        const validation = document.querySelector('.validation pre');
+                        validation.innerHTML = "";
+                        const div = document.createElement('div');
+                            div.className = `alert-container`;
+                            div.style = 'font-size: 18px; margin-bottom: 10px';
+                            div.role = 'alert';
+                            div.innerHTML = `<div class="valid-alert"></div><div class='alert alert-success'><span><b>valid! </b></span></div>`
+                            validation.appendChild(div);
+                      } else {
+                          const validation = document.querySelector('.validation pre');
+                          validation.innerHTML = "";
+
+                          for (var i = 0 ; i< validate.errors.length;i++){
+                            var result = "data"+validate.errors[i].instancePath + " "+validate.errors[i].message;
+                            result = result.replaceAll("/", ".");
+                            const div = document.createElement('div');
+
+                            div.className = 'alert-container';
+                            div.style = 'font-size: 18px; margin-bottom: 10px';
+                            div.role = 'alert';
+                            div.innerHTML = `<div class="invalid-alert"></div><div class='alert alert-danger'><span><b>invalid! </b>: </span>`+ result+`</div>`;
+                            validation.appendChild(div);
+                          }
+                      }
+                  }
+          } catch(e){
+          }
+
+        } catch (e) {
+          alert("Please upload a valid JSON file! \n"+e)     
+        }
+      }
+      
+      </script>
+      <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+      <script src="script.js"></script>
+      <script type="text/javascript" src="https://unpkg.com/monaco-themes/dist/monaco-themes.js"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Generator and Validator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link id="pagestyle" rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   <style> 
+      body,html{
+        height: 100%;
+        margin: 0;
+        font-family: 'Lexend Deca', sans-serif;
+        background-color: #91CEE8;
+      }
+      p{
+        color: white;
+      }
+      h3{
+        padding-top: 1vw;
+        font-size: 2vw;
+      }
+      .img-fluid{
+        max-width: 80%;
+      }
+      .img-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;      
+      }
+      img > .col-md-6{
+        margin-top: 3vw;  
+        margin-bottom: 1vw;
+      }
+      .title{
+        font-weight: 600;
+        font-size: 4vw;
+        line-height: 4.5vw;
+      }
+      .title-container{
+        width: 32vw;
+        margin: 5vw;
+        margin-top: 6vw;
+        margin-bottom: 6vw;
+      }
+      .col-md-3{
+        height: fit-content;
+      }
+      .btm-row{
+        background-color: #91CEE8;
+        border-top-right-radius: 45px;
+        border-top-left-radius: 45px;
+        height: fit-content;
+        min-width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+      }
+      .square{
+        margin: 2vw;
+        height: 100%;
+      }
+
+      button {
+        border: none;
+        cursor: pointer;
+        appearance: none;
+        background-color: inherit;
+      }
+      .container-fluid > .row{
+        background-color: white;
+      }
+      button > img:hover{
+        filter: brightness(93%);
+      }
+      @media (max-width: 772px) {
+        .img-container > img {
+          max-width: 100%;
+        }
+        .top-row{
+          flex-direction: row;
+        }
+        .row > * {
+          width: 50%;
+        }
+        h1{
+          padding-left: 15px;
+        }
+      }
+    </style>
+</head>
+<body>
+  
+  
+ 
+  <div class="container-fluid">
+    
+    <div class="row top-row" id="index">
+        <div class="navbar-right" >
+            <div class="switch-container" style=" padding-top: 20px;"  >
+              <label class="switch ">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+              </label>
+            </div>  
+      </div>
+      <div class="col-md-4 title-container mx-auto ">
+        <h1 class="title">WOT Thing Description Generator <br>and Validator</h1>
+      </div>
+      <div class="col-md-6 text-center " >
+        <div class="img-container text-center">
+          <img src="images/Group 8.png" alt="WoT graph" class="img-fluid " >
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row btm-row ">
+        <div class="col-md-3">
+          <div class="square  ">
+            <button type="submit" id="icon1">
+              <img src="images/icon1.png" alt="buttonpng" style="max-height:5vw;margin-top: 1vw;"/>
+            </button>
+            <h3>TD Generator</h3>
+            <p>Create a  new Thing Description
+              by filing an HTML form.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="square">
+            <button type="submit" id="icon2">
+              <img src="images/icon2.png" alt="buttonpng" style="max-height:5vw;margin-top: 1vw;"/>
+            </button>
+            <h3>TD Validator</h3>
+            <p>Validate and edit your own 
+              Thing Description.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="square">  
+            <button type="submit" id="icon3">
+              <img src="images/icon3.png" alt="buttonpng" style="max-height:5vw;margin-top: 1vw;"/>
+            </button>
+            <h3>Documentation</h3>
+            <p>Refer to the documentation 
+              for more information.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="square">
+            <button type="submit" id="icon4">
+              <img src="images/icon4.png" alt="buttonpng" style="max-height:5vw;margin-top: 1vw;"/>
+            </button>
+            <h3>GitHub</h3>
+            <p>Find our project on 
+              GitHub.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+</body>
+<script>
+  document.getElementById("icon1").onclick =  function (){
+    window.location.href = "generator.html";
+  }
+  document.getElementById("icon2").onclick =  function (){
+    window.location.href = "validator.html";
+  }
+  document.getElementById("icon3").onclick =  function (){
+    window.location.href = "https://www.w3.org/TR/wot-thing-description11/?fbclid=IwAR1nlVPnbdFQPtJroOLmO3mFGcn_vK-v7Inr5oTaY71bz0BTmxf7AwV-FSk#thing";
+  }
+  document.getElementById("icon4").onclick =  function (){
+    window.location.href = "#";
+  }
+ // function to set a given theme/color-scheme
+      function setTheme(themeName) {
+            localStorage.setItem('theme', themeName);
+            document.documentElement.className = themeName;
+        }
+
+        // function to toggle between light and dark theme
+        function darkTheme() {
+          document.getElementById("index").style.backgroundColor="#37374C";
+          document.getElementsByTagName("h1")[0].style.color="white";
+          document.getElementsByClassName("row")[1].style.backgroundColor="#37374C";
+        }
+        function lightTheme() {
+          document.getElementById("index").style.backgroundColor="white";
+          document.getElementsByTagName("h1")[0].style.color="black";
+          document.getElementsByClassName("row")[1].style.backgroundColor="white";
+        }
+        // Immediately invoked function to set the theme on i nitial load
+        (function () {
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                darkTheme();
+                document.getElementById('slider').checked = false;
+            } else {
+                lightTheme();
+              document.getElementById('slider').checked = true;
+            }
+        })();
+         // function to set a given theme/color-scheme
+         function setTheme(themeName) {
+            localStorage.setItem('theme', themeName);
+        }
+        // function to toggle between light and dark theme
+        function toggleTheme() {
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                setTheme('theme-light');
+                lightTheme();
+            } else {
+                setTheme('theme-dark');
+                darkTheme();
+            }
+        }
+    
+</script>
+</html>

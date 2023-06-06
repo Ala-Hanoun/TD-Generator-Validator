@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>TD Generator</title>
+    <link rel="icon" href="Group 2.png">
+  <link rel="stylesheet" type="text/css" href="deps/opt/bootstrap.css" />
+  <link id="pagestyle" rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="deps/jquery.min.js"></script>
+  <script type="text/javascript" src="deps/underscore.js"></script>
+  <script type="text/javascript" src="deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="lib/jsonform.js"></script>
+  <script type="text/javascript" src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+  <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+  <link rel="stylesheet" href="lib/default.min.css">
+  <script src="lib/highlight.min.js"></script>
+  <script src="lib/garlic.js"></script>
+  <script src="schema.js"></script>
+</head>
+<body>
+    <div class="col-md-4 pop-up" id="pop-up" style="display: none;">
+        <div class="navbar navbar-default pop-up-header ">
+          <div class="navbar-header">
+            <span class="navbar-brand" style="font-size: 2rem; color: white;">TD Review</span>
+          </div>
+          <div class="navbar-right home-btn-container">
+              <button class="btn home-btn" id="exit-pop-up" onclick="closePopup()">exit</i></button>
+          </div>
+        </div>
+
+        <div class="pop-up-body">
+            <div class="pop-up-code">
+                <pre style="overflow-x: auto;"><code id="code" class="language-json"></code></pre>
+            </div>  
+            <button class="btn btn-primary pop-up-save" id="pop-up-save" type="submit">Save</button>
+        </div>
+    </div>
+   <div id="all">    
+        <div role="navigation" class="navbar navbar-default header">
+            <img src="images/icon1.png" class="media-left" style="max-height:50px; float: left; padding-left: 20px;" alt="">
+        <div class="navbar-header">
+            <span class="navbar-brand" style="font-size: 2rem; color: rgb(61, 60, 63);">TD Generator</span>
+        </div>
+        <div class="navbar-right home-btn-container" >
+            <a href="index.html">
+            <button class="btn home-btn">Home</button>
+            </a>
+            <div class="switch-container" >
+              <label class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+              </label>
+            </div>  
+        </div>
+        </div>
+
+        <div class="col">
+            <div class="border" style="overflow: auto; height: 87vh; z-index: 10; ">
+                <form data-persist="garlic" method="POST" id="myForm" onload="form-script.js">
+                    <button class="btn btn-primary reset-btn garlic-auto-save btn-lg" type="reset" onclick='return confirm_reset();'>Reset</button></form>
+            </div> 
+                
+        </div>
+        <connection from=".section1" to=".section2" color="red"></connection>
+        <div class="footer">
+            <h3> © 2023</h3>
+        </div>
+   </div>
+   <script src="form-script.js"></script>
+  <script type="text/javascript">
+        function setTheme(themeName) {
+            localStorage.setItem('theme', themeName);
+            document.documentElement.className = themeName;
+        }   
+        // Immediately invoked function to set the theme on initial load
+        (function () {
+            console.log(localStorage.getItem('theme'))
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                darkTheme();
+                document.getElementById('slider').checked = false;
+            } else {
+                lightTheme();
+                document.getElementById('slider').checked = true;
+            }
+        })();
+              // function to toggle between light and dark theme
+              function toggleTheme() {
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                setTheme('theme-light');
+                lightTheme();
+            } else {
+                setTheme('theme-dark');
+                darkTheme();
+            }
+        }
+        function darkTheme() {
+          document.getElementById("all").style.backgroundColor="#37374C";
+          document.getElementById("pagestyle").setAttribute("href", "dark-style.css");  
+        }
+        function lightTheme() {
+          document.getElementById("all").style.backgroundColor="white";
+          document.getElementById("pagestyle").setAttribute("href", "style.css");  
+        }
+    
+        
+    function closePopup() {
+                                document.getElementById('pop-up').style.display = 'none';
+                                document.getElementById('all').style.opacity = '1';
+                                document.getElementById('all').style.filter = ' brightness(100%)';
+                          }
+    function confirm_reset() {
+    return confirm("Are you sure you want to reset all text?");
+    }
+   
+                $('form').jsonForm({
+                    "schema": schema,
+                    "form": form, // this is the code that will be executed when the submit button is pressed 
+                    // the JSON code that will be generated by the form is not exactly 
+                    //how we want it so we have to process it a little bit
+                    onSubmit: function(errors, values) {
+                        if (errors) {  
+                            $('#res').html('<p>error</p>');
+                            console.log(errors);
+                        } else { 
+                            // if no error occurs the output of the form will be stored in "values" 
+                            //which has a type of(form object)    
+                            //Code to cheack if the user selected at least one security definition 
+                            if (values.securityDefinitions.length == 0) {
+                              if(document.getElementById('alert-msg')== null){
+                                document.getElementsByClassName('checkbox')[0].insertAdjacentHTML('beforeend',
+                              "  <span id='alert-msg' class='alert alert-danger' style='padding:5px; margin-left:10px;float:right;'>Please check at least one box</span>");
+                              }                       
+                            }
+                            else {
+                            //remove the alert message
+                              if(document.getElementById('alert-msg') != null){
+                                document.getElementById("alert-msg").remove();
+                              }         
+                            //This is the code to deal with attributes that have multiple data types.
+                            if ('@type_array' in values) {                // if the user choose @type to be an array of strings
+                                values["@type"] = values["@type_array"];
+                                delete values["@type_array"];
+                            }
+                            if ('security_array' in values) {
+                                values["security"] = values["security_array"];
+                                delete values["security_array"];
+                            }
+                            if ('profile_array' in values) {
+                                values["profile"] = values["profile_array"];
+                                delete values["profile_array"];
+                            }
+
+                            //code to deal with security definitions:
+                            secDef = {}
+                            for (let i = 0; i < values.securityDefinitions.length; i++) {
+                                secDef[values.securityDefinitions[i] + "_sc"] = {
+                                    "scheme": values.securityDefinitions[i]
+                                };
+                            }
+                            values.securityDefinitions = secDef;
+
+                            //code to fix property  title
+                            if(values.propertiess != null){
+                              var property_titles = [];
+                              var new_properties = {};
+                              for(let i=0; i < values.propertiess.length; i++) {
+                                if(values.propertiess[i].property_title != undefined){
+                                  property_titles[i] = values.propertiess[i].property_title;
+                                  delete values.propertiess[i].property_title;
+                                  new_properties[property_titles[i]] = values.propertiess[i];
+                                }
+                              }
+                              delete values.propertiess;
+                              values.properties = new_properties;
+                              if(Object.keys(values.properties).length == 0){
+                                delete values.properties;
+                              }
+                            } 
+                             //code to fix action title 
+                            if(values.actions != null){
+                              var action_titles = [];
+                              var new_actions = {};
+                              for(let i=0; i < values.actions.length; i++) {
+                                if(values.actions[i].Action_title != undefined){
+                                  action_titles[i] = values.actions[i].Action_title;
+                                  delete values.actions[i].Action_title;
+                                  new_actions[action_titles[i]] = values.actions[i];
+                                }
+                              }
+                              values.actions = new_actions;
+                              if(Object.keys(values.actions).length == 0){
+                                delete values.actions;
+                              }
+                            }
+                            //code to fix event title 
+                            if(values.events != null) {
+                              var event_titles = [];
+                              var new_events = {};
+                              for(let i=0; i < values.events.length; i++) {
+                                if(values.events[i].event_title != undefined){
+                                  event_titles[i] = values.events[i].event_title;
+                                  delete values.events[i].event_title;
+                                  new_events[event_titles[i]] = values.events[i];
+                                }
+                              }
+                              values.events = new_events;
+                              if(Object.keys(values.events).length == 0){
+                                delete values.events;
+                              }
+                            }
+
+                            // code to change "modified" and "created" format to RFC3339 date-time
+                            if('modified' in values){
+                              try{
+                                modified_date = values.modified;
+                                const date = new Date(modified_date);
+                                const isoString = date.toISOString();
+                                values.modified = isoString
+                              } catch(err){}
+                            }
+                            if('created' in values){
+                              try{
+                                created_date = values.created;
+                                const date2 = new Date(created_date);
+                                const isoString2 = date2.toISOString();
+                                values.created = isoString2
+                              } catch(err){}
+                            }
+                            
+                            
+                            var json = JSON.stringify(values, null, 2);
+                            
+                            document.getElementById('pop-up').style.display = 'block';
+                            document.getElementById('all').style.opacity = '0.9';
+                            document.getElementById('all').style.filter = ' brightness(60%)';
+                            document.getElementById("code").innerHTML = json;
+                            
+                            hljs.highlightAll();
+                            document.getElementById('pop-up-save').onclick =
+                              function () {
+                                var a = document.createElement("a");
+                                var file = new Blob([json], {type: 'text/json'});
+                                a.href = URL.createObjectURL(file);
+                                a.download = 'Td.json';
+                                a.click();
+                                }
+                            
+                            }
+                        }
+                    },
+                });
+
+                helpTip();
+  </script>
+</body>
+</html>
