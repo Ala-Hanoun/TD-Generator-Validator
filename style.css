@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&family=Roboto+Mono:wght@400;500&family=Sacramento&display=swap');
 
 body,html{
-  height: 100%;
+  height: 100vh;
+  padding: 0;
   margin: 0;
   font-family: 'Lexend Deca', sans-serif;
   background-color: white;
   font-size: 15px;
   line-height: 1;
+}
+.row .ml-0 {
+  height: 100%;
 }
 label{
   font-weight: normal;
@@ -45,6 +49,8 @@ label{
   margin-top: 0;
   display: flex;
   justify-content: center;
+  width: 100%;
+
 }
 .footer > h3 {
   margin: 0;
@@ -89,17 +95,11 @@ width: fit-content;}
   visibility: visible;
 }
 pre{
-  height: 560px;
+  height: 75.7vh;
   background-color: white;
   white-space:pre-wrap;
 }
-/*
-.jsonform-hasrequired:after {
-  content: '* Required field';
-  display: block;
-  color: red;
-  padding-top: 1em;
-}*/
+
 .add-btns{
   overflow: hidden;
   position: fixed; /* Set the navbar to fixed position */
@@ -173,13 +173,12 @@ form > div {
 
 }
 #results{
-  height: 75.8vh;
+  height: 77.2vh;
   overflow: hidden;
   border: #bbc5ca;
   border-style: solid;
   border-radius: 5px;
   border-width: 1px;
-  margin-bottom: 10px;
 }
 .monaco-editor {
   width: 100%;
@@ -204,12 +203,20 @@ form > div {
   width: 45%;
   height: 90vh;
   border-radius: 25px;
-  z-index: 1000000000000000;
+  z-index: 10000000000;
 }
 @media screen and (max-width: 800px ) {
   .pop-up{
       min-width: 80%;
       margin: 5%;
+  }
+  .validator-menu {
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  #input {
+    margin-top: 10px;
   }
 }
 .pop-up-header {
@@ -262,7 +269,6 @@ form > div {
 }
 #input {
   padding: 7px;
-  float: right;
 }
 .validator-col-left {
   padding: 11px 25px;
@@ -271,7 +277,6 @@ form > div {
   border-left-width: 20px;
   border-right-style: solid;
   border-right-width: 10px;
-
 }
 .validator-col-right {
   padding: 11px 25px;
@@ -293,9 +298,7 @@ form > div {
   padding: 10px 10px;
   margin-right: 10px;
 }
-#navtabs-Properties > .form-group  > .controls > #jsonform-1-elt-counter-5  > ._jsonform-array-addmore {
- 
-}
+
 .controls > .nav{
   padding-left: 10px;
 }
@@ -441,4 +444,11 @@ background-position: center;
   display: flex;
   float: right;
   justify-content: right;
+}
+
+.validator-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }

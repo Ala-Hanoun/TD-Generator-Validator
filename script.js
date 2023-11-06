@@ -14,20 +14,14 @@ require(["vs/editor/editor.main"], function() {
           // it parses the json data object from the file to the variable obj
           var obj = JSON.parse(event.target.result);
           if (localStorage.getItem('theme') === 'theme-dark'){
-            fetch('Dracula.json')
-            .then(data => data.json())
-            .then(data => {
-              monaco.editor.defineTheme('dracula', data);
+       
+              monaco.editor.defineTheme('dracula', Dracula);
               monaco.editor.setTheme('dracula');
-            })  
           }
          else {
-          fetch('Dawn.json')
-            .then(data => data.json())
-            .then(data => {
-              monaco.editor.defineTheme('dawn', data);
+         
+              monaco.editor.defineTheme('dawn', Dawn);
               monaco.editor.setTheme('dawn');
-            })  
          }
           var modelUri = monaco.Uri.parse("a://b/foo.json"); // a made up unique URI for our model
           // dispose of any old model before creating the new one.

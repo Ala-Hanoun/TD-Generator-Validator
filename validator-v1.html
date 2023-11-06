@@ -100,22 +100,16 @@
             }
         }
         function darkTheme() {
-          fetch('Dracula.json')
-            .then(data => data.json())
-            .then(data => {
-              monaco.editor.defineTheme('dracula', data);
+
+              monaco.editor.defineTheme('dracula', Dracula);
               monaco.editor.setTheme('dracula');
-            })  
           document.getElementById("pagestyle").setAttribute("href", "dark-style.css"); 
            
         }
         function lightTheme() {
-          fetch('Dawn.json')
-            .then(data => data.json())
-            .then(data => {
-              monaco.editor.defineTheme('dawn', data);
+         
+              monaco.editor.defineTheme('dawn', Dawn);
               monaco.editor.setTheme('dawn');
-            })  
           document.getElementById("pagestyle").setAttribute("href", "style.css");  
         }
     

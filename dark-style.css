@@ -5,29 +5,31 @@ form > div {
     padding: 8px 12px;
   }
 body,html{
-  height: 100%;
+  height: 100vh;
   margin: 0;
+  padding: 0;
   font-family: 'Lexend Deca', sans-serif;
   background-color: #45455a;
   font-size: 15px;
   line-height: 1;
   color: white;
 }
-
+.row .ml-0 {
+  height: 100%;
+}
 label{
   font-weight: normal;
   color: rgb(2, 0, 0);
 }
 .form-control{
     background-color: #e8e8ee;
-    border-color: #37374C;
     color: rgb(17, 17, 17);
 }
 #navtabs {
     background-color: #45455a;
 }
 .nav-tabs{
-  border-bottom:1px solid #01010e;
+  border-bottom:1px solid #2c2c3b;
 }
 .jsonform-required > label:after {
   content: ' *';
@@ -93,7 +95,7 @@ a.btn-default {
 width: fit-content;}
 
 .glyphicon{
-  color: #151616;
+  color: #2b526a;
 }
 .glyphicon-plus-sign{
   font-size: 20px;
@@ -108,7 +110,7 @@ width: fit-content;}
   visibility: visible;
 }
 pre{
-  height: 560px;
+  height: 75.7vh;
   background-color: #45455a;
   border-color: #97a6bc;
   white-space:pre-wrap;
@@ -173,15 +175,6 @@ a { display: inline-block; }
 .navbar{
     border-color: #8ccee9;
 }
-/*
-.border{
-  border-color: black;
-  border-style: solid;
-  border-width: thin;
-  border-radius: 10px;
-
-}
-*/
 .submit-btn {
   position: fixed;
   bottom: 30px;
@@ -200,13 +193,12 @@ a { display: inline-block; }
 
 }
 #results{
-  height: 75.8vh;
+  height: 77.2vh;
   overflow: hidden;
   border: #bbc5ca;
   border-style: solid;
   border-radius: 5px;
   border-width: 1px;
-  margin-bottom: 10px;
 }
 .monaco-editor {
   width: 100%;
@@ -234,12 +226,20 @@ a { display: inline-block; }
   z-index: 1000000000000000;
 }
 .pop-up-code > pre {
-  background-color: white;
+  background-color: #7885a7;
 }
 @media screen and (max-width: 800px ) {
   .pop-up{
       min-width: 80%;
       margin: 5%;
+  }
+  .validator-menu {
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  #input {
+    margin-top: 10px;
   }
 }
 .pop-up-header {
@@ -255,7 +255,7 @@ a { display: inline-block; }
 .pop-up-body {
   height: 88%;
   width: 100%;
-  background-color: rgb(93, 93, 95);
+  background-color: #4f5971;
   border-bottom-right-radius: 25px;
   border-bottom-left-radius: 25px;
   display: flex;
@@ -275,24 +275,33 @@ a { display: inline-block; }
 .pop-up-code > pre {
   width: 90%;
   height: 65vh;
+  background-color: #4f5971;
 }
 .pop-up-save {
   align-self:last baseline;
   margin-right: 30px;
   padding: 10px 18px;
   font-size: 18px;
-  background-color: #454747;
-  border: #454747;
+  background-color: #52a3c6;
+  border: #52a3c6;
+}
+.hljs {
+  color: white !important;
+}
+.hljs-punctuation, .hljs-tag {
+  color: rgba(177, 175, 175, 0.667) !important;
+}
+.hljs-deletion, .hljs-number, .hljs-quote, .hljs-selector-class, .hljs-selector-id, .hljs-string, .hljs-template-tag, .hljs-type {
+  color: rgb(255, 135, 95) !important;
 }
 #code{
-  background-color: white;
+  background-color: #4f5971;
 }
 #myForm {
   margin-left: 0;
 }
 #input {
   padding: 7px;
-  float: right;
 }
 .validator-col-left {
   padding: 11px 25px;
@@ -316,8 +325,18 @@ a { display: inline-block; }
   display: flex;
   flex-direction: row;
 }
+ .col-xs-6 > .btn-default {
+  color: #333;
+  background-color: #c4dee9;
+  border-color: #ccc;
+}
+#versions > .btn-default {
+  color: #333;
+  background-color: #c4dee9;
+  border-color: #ccc;
+}
 #save-btn {
-  background-color: #606363;
+  background-color: #6db1ce;
   border-radius: 10px;
   border: none;
   padding: 10px 10px;
@@ -341,10 +360,10 @@ a { display: inline-block; }
 .jsonform-error-version > legend {
   font-size: medium;
   margin-bottom: 1px;
-
+  border-bottom: #151616;
 }
 .jsonform-error-version > legend {
-  color:   rgb(84, 81, 81);
+  color:   black;
 }
 .section {
   color: rgb(5, 5, 5) !important;
@@ -478,8 +497,36 @@ background-position: center;
 }
 .switch-container{
   margin-left: 70px;
-  margin-right: 20px;
+  margin-right: 30px;
   display: flex;
   float: right;
   justify-content: right;
+}
+
+.validator-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-tabs > li > a {
+  color: #3498ea;
+}
+.nav-tabs > li.active > a{
+  background-color: #626275 !important;
+  border: black;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+  background-color: #5e677c;
+  border: black;
+  color: rgb(255, 255, 255);
+}
+.nav-tabs > li > a:hover{
+  background-color: #6b6b85;
+  border: black;
+  
+}
+.tabbable > .nav-tabs > li.active > a {
+  background-color: #7885a7 !important;
+  border: black;
 }

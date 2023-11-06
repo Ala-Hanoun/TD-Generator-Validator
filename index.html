@@ -20,7 +20,7 @@
       }
       h3{
         padding-top: 1vw;
-        font-size: 2vw;
+        font-size: 2rem;
       }
       .img-fluid{
         max-width: 80%;
@@ -38,13 +38,15 @@
       .title{
         font-weight: 600;
         font-size: 4vw;
-        line-height: 4.5vw;
       }
       .title-container{
-        width: 32vw;
+        min-width: 20vw;
         margin: 5vw;
         margin-top: 6vw;
         margin-bottom: 6vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .col-md-3{
         height: fit-content;
@@ -75,6 +77,9 @@
       button > img:hover{
         filter: brightness(93%);
       }
+      .square {
+        width: 22vw;;
+      }
       @media (max-width: 772px) {
         .img-container > img {
           max-width: 100%;
@@ -82,11 +87,22 @@
         .top-row{
           flex-direction: row;
         }
-        .row > * {
-          width: 50%;
-        }
+
         h1{
           padding-left: 15px;
+        }
+        .square {
+           width: 60vw;;
+           margin: 20px 15vw 30px 15vw;
+        }
+        .btm-row {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .title {
+          margin-top: 30px; 
         }
       }
     </style>
@@ -107,21 +123,20 @@
             </div>  
       </div>
       <div class="col-md-4 title-container mx-auto ">
-        <h1 class="title">WOT Thing Description Generator <br>and Validator</h1>
+        <h1 class="title">WoT Thing Description Generator <br>and Validator</h1>
       </div>
       <div class="col-md-6 text-center " >
         <div class="img-container text-center">
           <img src="images/Group 8.png" alt="WoT graph" class="img-fluid " >
-
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="row btm-row ">
+      <div class="row btm-row">
         <div class="col-md-3">
-          <div class="square  ">
+          <div class="square">
             <button type="submit" id="icon1">
-              <img src="images/icon1.png" alt="buttonpng" style="max-height:5vw;margin-top: 1vw;"/>
+              <img src="images/icon1.png" alt="buttonpng" style="height:10vh; width:auto; margin-top: 1vw;"/>
             </button>
             <h3>TD Generator</h3>
             <p>Create a  new Thing Description
@@ -131,7 +146,7 @@
         <div class="col-md-3">
           <div class="square">
             <button type="submit" id="icon2">
-              <img src="images/icon2.png" alt="buttonpng" style="max-height:5vw;margin-top: 1vw;"/>
+              <img src="images/icon2.png" alt="buttonpng" style="max-height:10vh;margin-top: 1vw;"/>
             </button>
             <h3>TD Validator</h3>
             <p>Validate and edit your own 
@@ -141,7 +156,7 @@
         <div class="col-md-3">
           <div class="square">  
             <button type="submit" id="icon3">
-              <img src="images/icon3.png" alt="buttonpng" style="max-height:5vw;margin-top: 1vw;"/>
+              <img src="images/icon3.png" alt="buttonpng" style="max-height:10vh;margin-top: 1vw;"/>
             </button>
             <h3>Documentation</h3>
             <p>Refer to the documentation 
@@ -151,7 +166,7 @@
         <div class="col-md-3">
           <div class="square">
             <button type="submit" id="icon4">
-              <img src="images/icon4.png" alt="buttonpng" style="max-height:5vw;margin-top: 1vw;"/>
+              <img src="images/icon4.png" alt="buttonpng" style="max-height:10vh;margin-top: 1vw;"/>
             </button>
             <h3>GitHub</h3>
             <p>Find our project on 
@@ -173,7 +188,7 @@
     window.location.href = "https://www.w3.org/TR/wot-thing-description11/?fbclid=IwAR1nlVPnbdFQPtJroOLmO3mFGcn_vK-v7Inr5oTaY71bz0BTmxf7AwV-FSk#thing";
   }
   document.getElementById("icon4").onclick =  function (){
-    window.location.href = "#";
+    window.location.href = "https://github.com/Ala-Hanoun/TD-Generator-Validator";
   }
  // function to set a given theme/color-scheme
       function setTheme(themeName) {
@@ -192,7 +207,7 @@
           document.getElementsByTagName("h1")[0].style.color="black";
           document.getElementsByClassName("row")[1].style.backgroundColor="white";
         }
-        // Immediately invoked function to set the theme on i nitial load
+        // Immediately invoked function to set the theme on initial load
         (function () {
             if (localStorage.getItem('theme') === 'theme-dark') {
                 darkTheme();

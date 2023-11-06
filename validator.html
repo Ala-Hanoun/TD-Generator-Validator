@@ -15,25 +15,24 @@
 <body>
   <div role="navigation" class="navbar navbar-default header">
     <img src="images/icon2.png" class="media-left" style="max-height:50px; float: left; padding-left: 20px;" alt="">
-  <div class="navbar-header">
-    <span class="navbar-brand" style="font-size: 2rem; color: black;">TD Validator</span>
-  </div>
-  <div class="navbar-right home-btn-container">
-    <a href="index.html">
-      <button class="btn home-btn">Home</button>
-    </a>
-    <div class="switch-container">
-              <label class="switch">
-                <input type="checkbox" onchange="toggleTheme()" id="slider">
-                <span class="slider round"></span>
-              </label>
-            </div>  
-  </div>
+    <div class="navbar-header">
+      <span class="navbar-brand" style="font-size: 2rem; color: black;">TD Validator</span>
+    </div>
+    <div class="navbar-right home-btn-container">
+      <a href="index.html">
+        <button class="btn home-btn">Home</button>
+      </a>
+      <div class="switch-container">
+                <label class="switch">
+                  <input type="checkbox" onchange="toggleTheme()" id="slider">
+                  <span class="slider round"></span>
+                </label>
+              </div>  
+    </div>
 </div>
   <div class="row ml-0" style="margin: 0; margin-bottom: 0;">
-    <div class="col-md-6 validator-col-left" >
-      <div class="row">      
-        <div class="col-xs-6">
+    <div class="col-md-6  ml-0  validator-col-left" >
+      <div class="validator-menu">      
           <div class="dropdown show" id="versions"> 
             <label for="versions" style="padding-top:13px ; padding-left: 10px;">Select TD version:</label>         
             <a class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,7 +42,6 @@
               <li><a href="validator-v1.html" >V1.0</a></li>
               <li><a href="#" >V1.1</a></li>
             </ul>
-          </div>
         </div>
         <div class="col-xs-6 ">
           <input type="file" id="input" accept=".json" class="btn btn-default" style="margin-bottom: 12px;">
@@ -98,21 +96,16 @@
             }
         }
         function darkTheme() {
-          fetch('Dracula.json')
-            .then(data => data.json())
-            .then(data => {
-              monaco.editor.defineTheme('dracula', data);
+         
+              monaco.editor.defineTheme('dracula', Dracula);
               monaco.editor.setTheme('dracula');
-            })  
+            
           document.getElementById("pagestyle").setAttribute("href", "dark-style.css");  
         }
         function lightTheme() {
-          fetch('Dawn.json')
-            .then(data => data.json())
-            .then(data => {
-              monaco.editor.defineTheme('dawn', data);
+          
+              monaco.editor.defineTheme('dawn', Dawn);
               monaco.editor.setTheme('dawn');
-            })  
           document.getElementById("pagestyle").setAttribute("href", "style.css");  
         }
     

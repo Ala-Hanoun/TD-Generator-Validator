@@ -1,8 +1,4 @@
 function helpTip (){
-  
-    // document.getElementsByTagName('label')[0].insertAdjacentHTML('afterend',
-     //"  <span class='glyphicon glyphicon-info-sign my-tooltip'><span class='tooltiptext'  data-placement='top'> 	JSON-LD keyword to define short-hand names called terms that are used throughout a TD document</span ></span>");
-    
      document.getElementsByTagName('label')[1].insertAdjacentHTML('afterend',
      "  <span class='glyphicon glyphicon-info-sign my-tooltip'><span class='tooltiptext'  data-placement='top'>JSON-LD keyword to define short-hand names called terms that are used throughout a TD document.   </span ></span>");
  
@@ -76,11 +72,6 @@ function helpTip (){
  
      document.getElementsByTagName('label')[52].insertAdjacentHTML('afterend',
      "  <span class='glyphicon glyphicon-info-sign my-tooltip'><span class='tooltiptext'  data-placement='top'>Indicates whether the action is synchronous (=true) or not. A synchronous action means that the response of action contains all the information about the result of the action and no further querying about the status of the action is needed. Lack of this keyword means that no claim on the synchronicity of the action can be made.</span ></span>");
- 
-     
- 
- 
-     
  
      document.getElementsByTagName('label')[32].insertAdjacentHTML('afterend',
      "  <span class='glyphicon glyphicon-info-sign my-tooltip'><span class='tooltiptext'  data-placement='top'>Set of form hypermedia controls that describe how an operation can be performed. Forms are serializations of Protocol Bindings. Thing-level forms are used to describe endpoints for a group of interaction affordances.</span ></span>");
